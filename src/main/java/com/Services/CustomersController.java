@@ -12,7 +12,7 @@ public class CustomersController extends HTTPMethodUtils {
     String baseUrl;
 
     public void setBaseUrl(){
-        baseUrl = BaseSetup.setApiBaseUrl(System.getenv("API_ENV").toLowerCase().trim());
+        baseUrl = BaseSetup.setApiBaseUrl(System.getenv("ENV").toLowerCase().trim());
     }
 
     public Response getCustomerDetails(String endpoint, int customerId){
