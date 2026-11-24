@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="parabank funds transfer flow" verbose="1" annotations="TestNG">
+
+    <listeners>
+        <listener class-name="com.Utils.ReportUtils.ExtentReportListener" />
+        <listener class-name="com.Utils.ReportUtils.TestNGReport" />
+    </listeners>
+
+    <test name="Funds transfer E2E flow">
+        <classes>
+            <class name="com.TestClasses.CustomerFlowsTest" />
+        </classes>
+    </test>
+
+</suite>
