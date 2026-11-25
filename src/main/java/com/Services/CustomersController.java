@@ -3,7 +3,6 @@ package com.Services;
 import com.Base.BaseSetup;
 import com.Utils.APIUtils.HTTPMethodUtils;
 import com.Utils.APIUtils.RequestSpecificationBuilder;
-import com.Utils.CommonUtils.ConfigManager;
 import io.restassured.response.Response;
 
 public class CustomersController extends HTTPMethodUtils {

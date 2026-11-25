@@ -19,7 +19,7 @@ public class RequestSpecificationBuilder {
         return this;
     }
 
-    public RequestSpecificationBuilder setQueryParams(String key, String value){
+    public RequestSpecificationBuilder setQueryParams(String key, Object value){
         queryParams.put(key, value);
         return this;
     }

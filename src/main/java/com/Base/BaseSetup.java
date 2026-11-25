@@ -1,13 +1,17 @@
 package com.Base;
 
 import com.Utils.CommonUtils.ConfigManager;
+import com.Utils.DriverUtils.BrowserFactory;
+import com.Utils.DriverUtils.DriverManager;
 import com.Utils.ReportUtils.ExtentReportListener;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.response.Response;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Reporter;
+import org.testng.annotations.Optional;
 
 public class BaseSetup extends ExtentReportListener {
 
@@ -37,6 +41,16 @@ public class BaseSetup extends ExtentReportListener {
             uiUrl = ConfigManager.getProperty("ui.url.prod");
         }
         return uiUrl;
+    }
+
+    public void setupDriver(){
+        WebDriver driver = BrowserFactory.createDriver(System.getenv("BROWSER"),
+                Boolean.parseBoolean(System.getenv("HEADLESS")));
+        DriverManager.setDriver(driver);
+    }
+
+    public WebDriver getDriver(){
+        return DriverManager.getDriver();
     }
 
     /**

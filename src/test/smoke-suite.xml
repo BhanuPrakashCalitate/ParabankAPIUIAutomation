@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="parabank" verbose="1" annotations="TestNG">
+
+    <listeners>
+        <listener class-name="com.Utils.ReportUtils.ExtentReportListener" />
+        <listener class-name="com.Utils.ReportUtils.TestNGReport" />
+    </listeners>
+
+    <test name="Smoke test cases">
+        <parameter name="username" value="john" />
+        <parameter name="password" value="demo" />
+        <classes>
+            <class name="com.TestClasses.API.CustomerFlowsTest" />
+            <class name="com.TestClasses.UI.LoginPageTest" />
+            <class name="com.TestClasses.UI.AcountsOverviewPageTest" />
+        </classes>
+    </test>
+
+</suite>

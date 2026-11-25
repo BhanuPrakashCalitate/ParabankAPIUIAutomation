@@ -1,4 +1,4 @@
-package com.TestClasses;
+package com.TestClasses.API;
 
 import com.Base.BaseTest;
 import com.Endpoints;

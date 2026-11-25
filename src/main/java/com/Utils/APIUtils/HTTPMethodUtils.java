@@ -1,6 +1,7 @@
 package com.Utils.APIUtils;
 
 import com.Base.BaseSetup;
+import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
@@ -42,6 +43,18 @@ public class HTTPMethodUtils extends BaseSetup {
 
         if (response != null){
             LOGGER.info("-----------Successfully retrieved the response------------" + response.statusCode());
+            log(LogStatus.INFO, "Response code: " + response.statusCode());
+        }
+
+        return response;
+    }
+
+    public Response postRequestWithoutPayload(String url, RequestSpecificationBuilder builder){
+
+        response = given().spec(getRequestSpecification(builder)).post(url);
+        if (response != null){
+            LOGGER.info("-----------Successfully retrieved the response------------" + response.statusCode());
+            log(LogStatus.INFO, "Response code: " + response.statusCode());
         }
 
         return response;

@@ -1,7 +1,5 @@
 package com.Utils.DriverUtils;
 
-import java.util.Locale;
-
 public enum BrowserType {
     CHROME,
     FIREFOX,

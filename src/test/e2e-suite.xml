@@ -8,9 +8,11 @@
         <listener class-name="com.Utils.ReportUtils.TestNGReport" />
     </listeners>
 
-    <test name="Funds transfer E2E flow">
+    <test name="E2E funds transfer flow">
+        <parameter name="username" value="john" />
+        <parameter name="password" value="demo" />
         <classes>
-            <class name="com.TestClasses.CustomerFlowsTest" />
+            <class name="com.TestClasses.FundsTransferE2EFlowTest" />
         </classes>
     </test>
 
