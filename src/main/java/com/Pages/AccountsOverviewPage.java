@@ -1,7 +1,6 @@
 package com.Pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,11 +10,27 @@ public class AccountsOverviewPage {
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(10);
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     private final By pageTitleAccountsOverview = By.xpath("//h1[@class='title'][contains(text(),'Accounts')]");
     private final By accountsTable = By.xpath("//table[@id='accountTable']");
+
+    //Dynamic locator for locating specific account row in accounts table
+    private By accountRow(String accountId){
+        System.out.println();
+        return By.xpath("//table[@id='accountTable']//tr[td/a[normalize-space()='"+accountId+"']]");
+    }
+
+    //Balance column
+    private By accountBalance(String accountId){
+        return By.xpath("//table[@id='accountTable']//tr[td/a[normalize-space()='"+accountId+"']]/td[2]");
+    }
+
+    //Available amount column
+    private By availableAmount(String accountId){
+        return By.xpath("//table[@id='accountTable']//tr[td/a[normalize-space()='"+accountId+"']]/td[3]");
+    }
 
     public AccountsOverviewPage(WebDriver driver){
 
@@ -38,5 +53,23 @@ public class AccountsOverviewPage {
 
     public String getPageTitle(){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitleAccountsOverview)).getText().trim();
+    }
+
+    public boolean isNewAccountDisplayed(String accountId){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(accountRow(accountId))).isDisplayed();
+    }
+
+    public String getAccountBalance(String accountId){
+        return driver.findElement(accountBalance(accountId)).getText();
+    }
+
+    public String getAvailableAmount(String accountId){
+        return driver.findElement(availableAmount(accountId)).getText();
+    }
+
+    public void refresh(){
+        driver.navigate().refresh();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(accountsTable));
     }
 }

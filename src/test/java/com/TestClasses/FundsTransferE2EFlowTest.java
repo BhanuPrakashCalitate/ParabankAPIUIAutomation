@@ -59,6 +59,25 @@ public class FundsTransferE2EFlowTest extends BaseTest {
         commonValidator.validateStatusCode(response, 200);
         accountsValidator.validateNewAccountDetails(response, softAssert, ConfigManager.getIntProperty("customer.id"), 1);
         log(LogStatus.INFO, "Successfully created new account: " + response.asString());
+        newAccountId = response.getBody().jsonPath().getInt("id");
+        log(LogStatus.INFO, "Extracted accountId from response: " + newAccountId);
+
+        /*
+        Validate newly created account is present in the accounts table in overview page
+        then check its balance and available amount columns
+         */
+        accountsOverviewPage.refresh();
+        softAssert.assertTrue(accountsOverviewPage.isNewAccountDisplayed(String.valueOf(newAccountId)),
+                "Newly created accountId: " +newAccountId+ " is not present in the table");
+        log(LogStatus.INFO, "Newly created account with accountId " +newAccountId+ " is present in the table");
+        softAssert.assertEquals(accountsOverviewPage.getAccountBalance(String.valueOf(newAccountId)), "$100.00",
+                "Mismatch in available balance or there is no balance in account");
+        log(LogStatus.INFO, "Account balance in newly created accountId: " +newAccountId+ " is: " +
+                accountsOverviewPage.getAccountBalance(String.valueOf(newAccountId)));
+        softAssert.assertEquals(accountsOverviewPage.getAvailableAmount(String.valueOf(newAccountId)), "$100.00",
+                "Mismatch in available amount or there is no amount in account");
+        log(LogStatus.INFO, "Available amount in newly created accountId: " +newAccountId+ " is: " +
+                accountsOverviewPage.getAvailableAmount(String.valueOf(newAccountId)));
 
         softAssert.assertAll();
     }
