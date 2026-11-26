@@ -39,6 +39,8 @@ public class HTTPMethodUtils extends BaseSetup{
 
     public Response getRequestWithBuilder(String url, RequestSpecificationBuilder builder){
 
+        log(LogStatus.INFO, "--------API----------" + url);
+
         Response response = given().spec(getRequestSpecification(builder)).get(url);
 
         if (response != null){
@@ -50,6 +52,8 @@ public class HTTPMethodUtils extends BaseSetup{
     }
 
     public Response postRequestWithoutPayload(String url, RequestSpecificationBuilder builder){
+
+        log(LogStatus.INFO, "--------API----------" + url);
 
         Response response = given().spec(getRequestSpecification(builder)).post(url);
         if (response != null){

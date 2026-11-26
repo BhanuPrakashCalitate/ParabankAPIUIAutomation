@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 
 public class AccountsOverviewPage {
@@ -31,6 +32,9 @@ public class AccountsOverviewPage {
     private By availableAmount(String accountId){
         return By.xpath("//table[@id='accountTable']//tr[td/a[normalize-space()='"+accountId+"']]/td[3]");
     }
+
+    //Total balance amount text
+    private final By totalBalanceAmountText = By.xpath("//table[@id='accountTable']//tr[td/b[normalize-space()='Total']]/td[2]/b");
 
     public AccountsOverviewPage(WebDriver driver){
 
@@ -65,6 +69,14 @@ public class AccountsOverviewPage {
 
     public String getAvailableAmount(String accountId){
         return driver.findElement(availableAmount(accountId)).getText();
+    }
+
+    public BigDecimal getTotalBalanceAmount(){
+
+        String balanceText = wait.until(ExpectedConditions.visibilityOfElementLocated(totalBalanceAmountText)).getText();
+        String normalizedAmount = balanceText.replaceAll("[$,]", "").trim();
+
+        return new BigDecimal(normalizedAmount);
     }
 
     public void refresh(){
