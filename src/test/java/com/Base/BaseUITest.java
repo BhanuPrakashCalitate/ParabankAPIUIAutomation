@@ -10,13 +10,18 @@ import org.testng.asserts.SoftAssert;
 public class BaseUITest extends BaseTest{
 
     @BeforeMethod(alwaysRun = true)
-    public void methodSetup(){
+    public void initializeBrowser(){
         setupDriver();
         softAssert = new SoftAssert();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void teardown(){
-        DriverManager.quitDriver();
+    public void cleanBrowser(){
+
+        try {
+            softAssert.assertAll();
+        }finally {
+            DriverManager.quitDriver();
+        }
     }
 }

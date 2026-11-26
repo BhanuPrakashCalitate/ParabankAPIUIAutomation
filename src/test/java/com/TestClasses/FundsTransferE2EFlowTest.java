@@ -9,6 +9,7 @@ import com.Utils.CommonUtils.ConfigManager;
 import com.Utils.DriverUtils.DriverManager;
 import com.Validators.AccountsValidator;
 import com.relevantcodes.extentreports.LogStatus;
+import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -54,7 +55,7 @@ public class FundsTransferE2EFlowTest extends BaseTest {
         accountType for CHECKING is 0 and SAVINGS is 1
          */
         log(LogStatus.INFO, "Creating new account of type SAVINGS whose accountType is 1");
-        response = accountsController.createAccount(Endpoints.CREATE_ACCOUNT, ConfigManager.getIntProperty("customer.id"),
+        Response response = accountsController.createAccount(Endpoints.CREATE_ACCOUNT, ConfigManager.getIntProperty("customer.id"),
                 1, ConfigManager.getIntProperty("source.account.id"));
         commonValidator.validateStatusCode(response, 200);
         accountsValidator.validateNewAccountDetails(response, softAssert, ConfigManager.getIntProperty("customer.id"), 1);
@@ -78,7 +79,5 @@ public class FundsTransferE2EFlowTest extends BaseTest {
                 "Mismatch in available amount or there is no amount in account");
         log(LogStatus.INFO, "Available amount in newly created accountId: " +newAccountId+ " is: " +
                 accountsOverviewPage.getAvailableAmount(String.valueOf(newAccountId)));
-
-        softAssert.assertAll();
     }
 }

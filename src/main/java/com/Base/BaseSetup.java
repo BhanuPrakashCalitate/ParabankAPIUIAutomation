@@ -19,7 +19,7 @@ public class BaseSetup extends ExtentReportListener {
 
     private static final String LOCAL_ENV = "local";
     private static final String PROD_ENV = "prod";
-    public Response response = null;
+    //public Response response = null;
 
     public static String setApiBaseUrl(String env){
 

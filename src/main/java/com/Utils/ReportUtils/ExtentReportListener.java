@@ -99,6 +99,7 @@ public class ExtentReportListener implements ITestListener, IReporter, ISuiteLis
         if (nodeTest != null && reports != null){
             reports.endTest(nodeTest);
             reports.flush();
+            test.remove();
         }
     }
 
@@ -132,6 +133,7 @@ public class ExtentReportListener implements ITestListener, IReporter, ISuiteLis
         t.log(LogStatus.PASS, buildLogJson(desc, "PASSED", "NA", "NA"));
         reports.endTest(t);
         reports.flush();
+        test.remove();
     }
 
     @Override
@@ -146,6 +148,7 @@ public class ExtentReportListener implements ITestListener, IReporter, ISuiteLis
         t.log(LogStatus.FAIL, buildLogJson(desc, "FAILED", exType, exMsg));
         reports.endTest(t);
         reports.flush();
+        test.remove();
     }
 
     @Override
@@ -160,6 +163,7 @@ public class ExtentReportListener implements ITestListener, IReporter, ISuiteLis
         t.log(LogStatus.SKIP, buildLogJson(desc, "SKIPPED", exType, exMsg));
         reports.endTest(t);
         reports.flush();
+        test.remove();
     }
 
     private static String buildLogJson(String testDesc, String status,

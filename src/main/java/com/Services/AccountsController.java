@@ -19,8 +19,6 @@ public class AccountsController extends HTTPMethodUtils {
         requestSpecificationBuilder.setQueryParams("newAccountType", accountType);
         requestSpecificationBuilder.setQueryParams("fromAccountId", sourceAccountId);
 
-        response = postRequestWithoutPayload(baseUrl+endpoint, requestSpecificationBuilder);
-
-        return response;
+        return postRequestWithoutPayload(baseUrl+endpoint, requestSpecificationBuilder);
     }
 }

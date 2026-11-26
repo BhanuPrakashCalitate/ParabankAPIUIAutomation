@@ -70,8 +70,7 @@ tasks.withType(Copy).configureEach {
 
 test {
     useTestNG {
-        // Uncomment and point to a suite XML if you use one:
-        // suites 'src/test/resources/testng-smoke.xml'
+        suites 'src/test/e2e-suite.xml'
     }
 
     // Forward all -D system properties passed to Gradle (e.g., -Denv=local -Dui.url.local=...)

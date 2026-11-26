@@ -19,8 +19,6 @@ public class CustomersController extends HTTPMethodUtils {
         requestSpecificationBuilder.setHeaders("Accept", "application/json, text/javascript, */*; q=0.01");
         requestSpecificationBuilder.setPathParams("customerId", customerId);
 
-        response = getRequestWithBuilder(baseUrl+endpoint, requestSpecificationBuilder);
-
-        return response;
+        return getRequestWithBuilder(baseUrl+endpoint, requestSpecificationBuilder);
     }
 }

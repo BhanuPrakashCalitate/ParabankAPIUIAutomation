@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import static io.restassured.RestAssured.given;
 
-public class HTTPMethodUtils extends BaseSetup {
+public class HTTPMethodUtils extends BaseSetup{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HTTPMethodUtils.class);
 
@@ -39,7 +39,7 @@ public class HTTPMethodUtils extends BaseSetup {
 
     public Response getRequestWithBuilder(String url, RequestSpecificationBuilder builder){
 
-        response = given().spec(getRequestSpecification(builder)).get(url);
+        Response response = given().spec(getRequestSpecification(builder)).get(url);
 
         if (response != null){
             LOGGER.info("-----------Successfully retrieved the response------------" + response.statusCode());
@@ -51,7 +51,7 @@ public class HTTPMethodUtils extends BaseSetup {
 
     public Response postRequestWithoutPayload(String url, RequestSpecificationBuilder builder){
 
-        response = given().spec(getRequestSpecification(builder)).post(url);
+        Response response = given().spec(getRequestSpecification(builder)).post(url);
         if (response != null){
             LOGGER.info("-----------Successfully retrieved the response------------" + response.statusCode());
             log(LogStatus.INFO, "Response code: " + response.statusCode());

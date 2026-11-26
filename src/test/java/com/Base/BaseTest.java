@@ -7,7 +7,6 @@ import com.Validators.CommonValidator;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-@Listeners({ExtentReportListener.class, TestNGReport.class})
 public class BaseTest extends BaseSetup{
 
     public SoftAssert softAssert;
@@ -26,7 +25,7 @@ public class BaseTest extends BaseSetup{
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void methodSetup(){
+    public void initialiseTestContext(){
         // Setup for each test method
         softAssert = new SoftAssert();
         //builder = new RequestSpecificationBuilder();
@@ -45,7 +44,7 @@ public class BaseTest extends BaseSetup{
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(){
+    public void cleanUpTestContext(){
         // Cleanup after each test method.
         // NOTE: RestAssured.reset() is intentionally omitted here — it modifies shared static
         // state and is NOT thread-safe when multiple test classes run concurrently via
@@ -55,6 +54,7 @@ public class BaseTest extends BaseSetup{
             if (builder != null) {
                 builder.reset();
             }
+            softAssert.assertAll();
         } catch (Exception e) {
             LOGGER.warn("Error during test method cleanup: {}", e.getMessage());
         }
