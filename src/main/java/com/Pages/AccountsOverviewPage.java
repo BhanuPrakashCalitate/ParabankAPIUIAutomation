@@ -33,8 +33,7 @@ public class AccountsOverviewPage {
         return By.xpath("//table[@id='accountTable']//tr[td/a[normalize-space()='"+accountId+"']]/td[3]");
     }
 
-    //Total balance amount text
-    private final By totalBalanceAmountText = By.xpath("//table[@id='accountTable']//tr[td/b[normalize-space()='Total']]/td[2]/b");
+    private final By logout = By.xpath("//a[contains(text(),'Log Out')]");
 
     public AccountsOverviewPage(WebDriver driver){
 
@@ -63,25 +62,28 @@ public class AccountsOverviewPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(accountRow(accountId))).isDisplayed();
     }
 
-    public String getAccountBalance(String accountId){
-        return driver.findElement(accountBalance(accountId)).getText();
+    public BigDecimal getAccountBalance(String accountId){
+        String amount = driver.findElement(accountBalance(accountId)).getText().replace("$", "").trim();
+        return new BigDecimal(amount);
     }
 
-    public String getAvailableAmount(String accountId){
-        return driver.findElement(availableAmount(accountId)).getText();
-    }
-
-    public BigDecimal getTotalBalanceAmount(){
-
-        String balanceText = wait.until(ExpectedConditions.visibilityOfElementLocated(totalBalanceAmountText)).getText();
-        String normalizedAmount = balanceText.replaceAll("[$,]", "").trim();
-
-        return new BigDecimal(normalizedAmount);
+    public BigDecimal getAvailableAmount(String accountId){
+        String amount = driver.findElement(availableAmount(accountId)).getText().replace("$", "").trim();
+        return new BigDecimal(amount);
     }
 
     public void refresh(){
         driver.navigate().refresh();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(accountsTable));
+    }
+
+    public void clickLogout(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(logout)).click();
+    }
+
+    public LoginPage logout(){
+        clickLogout();
+        return new LoginPage(driver);
     }
 }

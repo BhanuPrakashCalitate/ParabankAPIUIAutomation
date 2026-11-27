@@ -27,6 +27,17 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
     }
 
+    public boolean isPageLoaded(){
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInput));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public LoginPage open(String uiBaseUrl){
         String normalizedUrl = uiBaseUrl.endsWith("/")
                 ? uiBaseUrl.substring(0, uiBaseUrl.length()-1)
